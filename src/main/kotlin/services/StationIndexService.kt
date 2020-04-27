@@ -25,8 +25,6 @@ class StationIndexService(private val coroutineContext: CoroutineContext) {
     //  }
     suspend fun getRandomStationIndex(): Result {
         val (response, serversJson) = fetchStationIndexes()
-        console.log("serversJson")
-        console.log(serializer.parse(StationIndex.serializer().list, serversJson).random())
         return Result(
             response,
             serializer.parse(StationIndex.serializer().list, serversJson).random()
@@ -42,9 +40,6 @@ class StationIndexService(private val coroutineContext: CoroutineContext) {
                     "Content-Type" to "application/json"
                 )
             )).await()
-
-        console.log("response")
-        console.log(response)
 
             return@withContext Result(
                 response,

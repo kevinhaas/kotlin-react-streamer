@@ -17,8 +17,6 @@ class StationService(private val coroutineContext: CoroutineContext) {
 
     suspend fun getStations(url: String = "", limit: Int = 20): Result {
         val (response, stationsJson) = fetchStations("$url/json/stations?limit=$limit")
-        console.log("stationsJson")
-        console.log(serializer.parse(Station.serializer().list, stationsJson))
         return Result(
             response,
             serializer.parse(Station.serializer().list, stationsJson)
@@ -34,9 +32,6 @@ class StationService(private val coroutineContext: CoroutineContext) {
                     "Content-Type" to "application/json"
                 )
             )).await()
-
-            console.log("response")
-            console.log(response)
 
             return@withContext Result(
                 response,
